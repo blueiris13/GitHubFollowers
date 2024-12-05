@@ -17,11 +17,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let searchNC = UINavigationController(rootViewController: SearchViewController())
+        
+        let favoriteNC = UINavigationController(rootViewController: FavoritesListViewController())
+        
+        let tabbar = UITabBarController()
+        tabbar.viewControllers = [searchNC,favoriteNC]
+        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = ViewController()
+        window?.rootViewController = createTabbar()
         window?.makeKeyAndVisible()
     }
+    
+    // Create a navigation controller
+    func createSearchNC() -> UINavigationController {
+        let searchVC = SearchViewController()
+        searchVC.title = "Search"
+        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        return UINavigationController(rootViewController: searchVC)
+    }
+    
+    func createFavoritesNC() -> UINavigationController {
+        let favoritesListVC = FavoritesListViewController()
+        favoritesListVC.title = "Favories"
+        favoritesListVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        
+        return UINavigationController(rootViewController: favoritesListVC)
+    }
+    
+    // Create a tabbar
+    func createTabbar() -> UITabBarController {
+        let tabbar = UITabBarController()
+        UITabBar.appearance().tintColor = .systemGray
+        tabbar.viewControllers = [createSearchNC(), createFavoritesNC()]
+        
+        return tabbar
+    }
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

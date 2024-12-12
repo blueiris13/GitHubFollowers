@@ -1,5 +1,5 @@
 //
-//  GFFollowerButton.swift
+//  GFButton.swift
 //  GitHubFollowers
 //
 //  Created by Iris Kim on 12/5/24.
@@ -27,7 +27,7 @@ class GFButton: UIButton {
     
     private func configure(){
         layer.cornerRadius = 10
-        titleLabel?.textColor = .white
+        setTitle(.white, for: .normal)
         titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         translatesAutoresizingMaskIntoConstraints = false
     }
